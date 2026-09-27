@@ -1,0 +1,22 @@
+<policies>
+  <inbound>
+    <base />
+    <rate-limit-by-key calls="5" renewal-period="15" counter-key="@(context.Request.IpAddress)" />
+    <return-response>
+      <set-status code="200" reason="OK" />
+      <set-header name="Content-Type" exists-action="override">
+        <value>application/json</value>
+      </set-header>
+      <set-body>{"items":[{"id":"SKU-1001","name":"Demo laptop","quantity":42},{"id":"SKU-1002","name":"USB-C dock","quantity":18}]}</set-body>
+    </return-response>
+  </inbound>
+  <backend>
+    <base />
+  </backend>
+  <outbound>
+    <base />
+  </outbound>
+  <on-error>
+    <base />
+  </on-error>
+</policies>

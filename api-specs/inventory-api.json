@@ -1,0 +1,57 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Inventory API",
+    "version": "1.0.0",
+    "description": "Demo inventory endpoint protected by Azure API Management."
+  },
+  "servers": [
+    { "url": "https://example.invalid/v1/inventory" }
+  ],
+  "paths": {
+    "/items": {
+      "get": {
+        "operationId": "listInventoryItems",
+        "summary": "List inventory items",
+        "responses": {
+          "200": {
+            "description": "Inventory returned successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["items"],
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/InventoryItem" }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": { "$ref": "#/components/responses/TooManyRequests" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "InventoryItem": {
+        "type": "object",
+        "required": ["id", "name", "quantity"],
+        "properties": {
+          "id": { "type": "string", "example": "SKU-1001" },
+          "name": { "type": "string", "example": "Demo laptop" },
+          "quantity": { "type": "integer", "example": 42 }
+        }
+      }
+    },
+    "responses": {
+      "TooManyRequests": {
+        "description": "The caller exceeded the gateway rate limit."
+      }
+    }
+  }
+}

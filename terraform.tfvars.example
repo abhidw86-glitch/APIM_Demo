@@ -1,0 +1,7 @@
+apim_name       = "apim-security-demo-unique"
+publisher_email = "platform-team@example.com"
+location        = "East US"
+
+tags = {
+  owner = "platform-team"
+}
